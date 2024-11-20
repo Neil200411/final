@@ -1,13 +1,8 @@
-from kivy.core.window import Window
+
 from kivy.metrics import dp
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
-from kivy.uix.textinput import TextInput
-from kivymd.uix.button import MDRaisedButton, MDIconButton, MDFillRoundFlatButton
-from kivymd.uix.datatables import MDDataTable
 from kivymd.uix.dialog import MDDialog
-from kivymd.uix.textfield import MDTextField
+
 
 
 class DictionaryScreen(Screen):
