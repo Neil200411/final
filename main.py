@@ -7,8 +7,10 @@ from kivymd.app import MDApp
 from kivy.lang import Builder
 from kivy.metrics import dp
 from kivymd.uix.datatables import MDDataTable
-from kivy.uix.screenmanager import Screen, SlideTransition, FallOutTransition, RiseInTransition
+from kivy.uix.screenmanager import Screen, SlideTransition, FallOutTransition, RiseInTransition, FadeTransition
+from kivy.core.window import Window
 
+Window.size = 443,600
 
 class FinalApp(MDApp):
 
@@ -22,18 +24,21 @@ class FinalApp(MDApp):
 
         return self.screen_manager
 
-    def toggle_theme(self, is_active):
+
+    def dl(self):
         current_screen = self.root.get_screen('main')  # Replace with your actual screen name
-        if 'theme_label' in current_screen.ids:
-            if is_active:
+        if 'tap' in current_screen.ids:
+            current_theme = current_screen.ids.tap.text
+            if current_theme == "Dark Mode":
                 self.theme_cls.theme_style = "Dark"
-                current_screen.ids.theme_label.text = "Dark"
                 self.clearcolor = (0, 0, 0, 1)
+                current_screen.ids.tap.text = "Light Mode"# Set background to black
+                current_screen.ids.icons.icon = "weather-sunny"
             else:
                 self.theme_cls.theme_style = "Light"
-                current_screen.ids.theme_label.text = "Light"
-                self.clearcolor = (1, 1, 1, 1)
-
+                self.clearcolor = (1, 1, 1, 1)  # Set background to white
+                current_screen.ids.tap.text = "Dark Mode"
+                current_screen.ids.icons.icon = "weather-night"
 
     def play_click_sound(self):
 
@@ -49,13 +54,13 @@ class FinalApp(MDApp):
         self.root.current = "SplashScreen"
 
     def show_dictionary(self):
-        self.root.current = 'dictionary'
+
         if self.theme_cls.theme_style == "Dark":
             clearcolor = (0, 0, 0, 1)  # Black for dark mode
         else:
             clearcolor = (1, 1, 1, 1)  # White for light mode
-
         self.root.transition = FallOutTransition(duration=0.3, clearcolor=clearcolor)
+        self.root.current = 'dictionary'
 
     def go_back_to_main(self):
         self.root.transition = SlideTransition(duration=0.5, direction='left')
@@ -75,7 +80,6 @@ class FinalApp(MDApp):
             self.root.transition = RiseInTransition(duration=0.3, clearcolor=clearcolor)
 
         self.root.current = table_screen_name
-
         self.root.current = table_screen_name
 
     def load_tables(self):
@@ -89,7 +93,7 @@ class FinalApp(MDApp):
                 height=200
             )
             table1 = MDDataTable(
-                column_data=[("Terms", dp(20)), ("Meanings", dp(45)), ],
+                column_data=[("Terms", dp(35)), ("Meanings", dp(45)), ],
                 row_data=[("python", "a high-level programming language"),
                           ("data", "facts and statistics collected together")],
                 size_hint=(0.9, 0.8),
@@ -97,7 +101,7 @@ class FinalApp(MDApp):
                 height=200
             )
             table2 = MDDataTable(
-                column_data=[("Slang Words", dp(20)), ("Meanings", dp(45))],
+                column_data=[("Slang Words", dp(35)), ("Meanings", dp(45))],
                 row_data=[("yeet", "to throw something with force"), ("sus", "suspicious or suspect")],
                 size_hint=(0.9, 0.8),
                 pos_hint={'center_x': 0.5, 'center_y': 0.5},
