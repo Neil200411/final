@@ -5,13 +5,10 @@ from Loading_Screen import SplashScreen, CircularProgressBar
 from Manager import screen_helper
 from kivymd.app import MDApp
 from kivy.lang import Builder
-from kivy.core.window import Window
 from kivy.metrics import dp
 from kivymd.uix.datatables import MDDataTable
-from kivy.uix.screenmanager import Screen, SlideTransition, FadeTransition, FallOutTransition, RiseInTransition, \
-    SwapTransition
+from kivy.uix.screenmanager import Screen, SlideTransition, FallOutTransition, RiseInTransition
 
-Window.size = (400, 600)
 
 class FinalApp(MDApp):
 
@@ -134,4 +131,5 @@ class Table2Screen(Screen):
 class VideoScreen(Screen):
     pass
 
-FinalApp().run()
+if __name__ == "__main__":
+    FinalApp().run()
