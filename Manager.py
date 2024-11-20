@@ -96,22 +96,7 @@ ScreenManager:
                         orientation: 'vertical'
                         padding: dp(20)
                         spacing: dp(20)
-                
-                        MDBoxLayout:
-                            orientation: 'horizontal'
-                            spacing: dp(10)
-                            size_hint_y: None
-                            height: dp(48)
-                            pos_hint: {"center_x": 0.5}
-                
-                            MDLabel:
-                                id: theme_label
-                                text: "Light"  # Initial text
-                                halign: "left"
-                                valign: "center"
-                
-                            MDSwitch:
-                                on_active: app.toggle_theme(self.active)
+
         MDNavigationDrawer:
             id: nav_drawer
             BoxLayout:
@@ -144,6 +129,16 @@ ScreenManager:
                             text: 'About'
                             IconLeftWidget:
                                 icon: 'information'
+                        OneLineIconListItem:
+                            id: tap
+                            text: "Dark Mode"
+                            on_release:
+                                app.dl()
+                            IconLeftWidget:
+                                id: icons
+                                icon: 'weather-night'
+
+
 <DictionaryScreen>:
     name: 'dictionary'
     FloatLayout:
