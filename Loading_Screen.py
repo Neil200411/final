@@ -2,14 +2,14 @@ from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.properties import NumericProperty, ListProperty, StringProperty
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.screenmanager import Screen, WipeTransition
+from kivy.uix.screenmanager import Screen, FallOutTransition, FadeTransition
 
 
 class SplashScreen(Screen):
     def on_enter(self):
         # Schedule the transition after 10 seconds
         Clock.schedule_once(self.change_screen, 10)
-        self.manager.transition = WipeTransition(duration=0.3, clearcolor=(0, 1, 1, 1))
+        self.manager.transition = FadeTransition(duration=0.3, clearcolor=(1,1,1,1))
         self.play_background_music()
 
 
