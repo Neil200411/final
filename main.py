@@ -1,3 +1,4 @@
+from kivy.clock import Clock
 import webbrowser
 from kivy.core.audio import SoundLoader
 from Search_Engine import DictionaryScreen
@@ -8,14 +9,14 @@ from kivy.lang import Builder
 from kivy.metrics import dp
 from kivymd.uix.datatables import MDDataTable
 from kivy.uix.screenmanager import Screen, SlideTransition, FallOutTransition, RiseInTransition, FadeTransition
-from kivy.core.window import Window
 
-Window.size = 443,600
+
+
 
 class FinalApp(MDApp):
 
     def build(self):
-        self.theme_cls.primary_palette = "Orange"
+        self.theme_cls.primary_palette = "Pink"
         self.theme_cls.theme_style= "Light"
         self.screen_manager = Builder.load_string(screen_helper)
         self.load_tables()  # Call this method after the screen manager is created
@@ -77,6 +78,7 @@ class FinalApp(MDApp):
         elif table_screen_name == 'table1':
             self.root.transition = RiseInTransition(duration=0.3, clearcolor=clearcolor)
         elif table_screen_name == 'table2':
+
             self.root.transition = RiseInTransition(duration=0.3, clearcolor=clearcolor)
 
         self.root.current = table_screen_name
@@ -87,7 +89,8 @@ class FinalApp(MDApp):
         if self.screen_manager:
             table = MDDataTable(
                 column_data=[("Abbreviation Words", dp(35)), ("Meanings", dp(45))],
-                row_data=[("brb", "be right back"), ("idk", "I don't know"), ("lol", "laugh out loud")],
+                rows_num = 20,
+                row_data=[("brb", "be right back"), ("idk", "I don't know"), ("lol", "laugh out loud"),],
                 pos_hint={'center_x': 0.5, 'center_y': 0.5},
                 size_hint=(0.9, 0.8),
                 height=200
