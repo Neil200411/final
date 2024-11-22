@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = FinalApp
+title = FinalAp
 # (str) Package name
 package.name = BiteMe
 
