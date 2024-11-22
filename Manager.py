@@ -1,4 +1,6 @@
 screen_helper = """
+<MagicButton@MagicBehavior+MDRaisedButton>
+#:import Clock kivy.clock.Clock
 ScreenManager:
     SplashScreen:
     MainScreen:
@@ -18,7 +20,7 @@ ScreenManager:
         MDLabel:
             text: "App Name"
             font_size: "55sp"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.8}
+            pos_hint: {'center_x': 0.5, 'center_y': 0.9}
             halign: "center"
         
         Image:
@@ -71,8 +73,10 @@ ScreenManager:
                     orientation: 'vertical'
 
                     MDTopAppBar:
-                        title: 'Final App'
+                        title: 'Final App      '
+                        anchor_title: "center" 
                         left_action_items: [["menu", lambda x: nav_drawer.set_state("toggle")]]
+                        
                     MDLabel:
                         text: 'GUIDES:'
                         halign: 'center'
@@ -93,9 +97,20 @@ ScreenManager:
                         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                         
                     MDBoxLayout:
-                        orientation: 'vertical'
+                        orientation: 'horizontal'
                         padding: dp(20)
                         spacing: dp(20)
+                        
+                        Widget:  # Spacer to push content to the right
+
+                        Image:
+                            source: "Images/bite.gif"
+                            allow_stretch: True
+                            anim_delay: 0
+                            anim_reset: True
+                            size_hint: None, None
+                            size: dp(100), dp(100)
+                            pos_hint: {'center_y': 0.5}
 
         MDNavigationDrawer:
             id: nav_drawer
@@ -110,6 +125,7 @@ ScreenManager:
                                 app.play_click_sound2()
                             IconLeftWidget:
                                 icon: 'book-open-variant'
+                                
                         OneLineIconListItem:
                             text: 'Videos'
                             on_release: 
@@ -144,17 +160,25 @@ ScreenManager:
     FloatLayout:
         MDTextField:
             id: search_input
+            mode: "line"
             hint_text: "Enter abbreviation to search"
+            helper_text: "Type What You Want to Search"
+            helper_text_mode: "on_focus"
             size_hint: 0.6, None
             height: dp(40)
             pos_hint: {'center_x': 0.5, 'top': 0.88}
+            on_text_validate: root.search_term(search_input)
 
-        MDFillRoundFlatButton:
+        MagicButton:
             text: "Search"
             size_hint: None, None
             size: dp(150), dp(40)
-            pos_hint: {'center_x': 0.8, 'top': 0.85}
-            on_release: root.search_term(search_input)
+            pos_hint: {'center_x': 0.77, 'top': 0.87}
+            on_release: 
+                self.wobble()
+                Clock.schedule_once(lambda dt: root.search_term(search_input), 0.1)
+                
+                
 
         Label:
             text: "Dictionary Content Here"
@@ -173,28 +197,31 @@ ScreenManager:
         orientation: 'vertical'
         spacing: 10
         padding: 20
-        pos_hint: {'center_x': 0.5, 'center_y': 0.8}       
+        pos_hint: {'center_x': 0.5, 'center_y': 1}       
 
-        MDRaisedButton:
+        MagicButton:
             text: "View Abbreviation Table"
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
             on_release:
-                app.show_table_screen('table')
+                self.wobble()
+                Clock.schedule_once(lambda dt: app.show_table_screen('table'), 0.5)
                 app.play_click_sound()
 
-        MDRaisedButton:
+        MagicButton:
             text: "View Terms Table"
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}            
             on_release:
-                app.show_table_screen('table1')
+                self.wobble()
+                Clock.schedule_once(lambda dt: app.show_table_screen('table1'), 0.5)
                 app.play_click_sound()
             
 
-        MDRaisedButton:
+        MagicButton:
             text: "View Slang Words Table"
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}            
             on_release:
-                app.show_table_screen('table2')
+                self.wobble()
+                Clock.schedule_once(lambda dt: app.show_table_screen('table2'), 0.5)
                 app.play_click_sound()
 
 
@@ -242,68 +269,65 @@ ScreenManager:
 
     BoxLayout:
         orientation: 'vertical'
-        pos_hint: {'center_x': 0.5, 'center_y': 0.7}
         spacing: 10
         padding: 20
-
-
-
+        
         MDLabel:
-            text: "Here are some helpful videos"
+            text: 
+                "Here are some helpful videos"
+            font_size: "20sp"
             halign: "center"
+            pos_hint: {'center_x': 0.5, 'bottom': 1}
             size_hint_y: None
-            height: "20dp"
-
-        Image:
-            source: 'Images/Arrowdown.png'
-            size_hint_y: None
-            height: "300"
-            halign: "center"
-            size: '30dp', '30dp'
-
-        OneLineIconListItem:
-            text: "[color=0000FF]    Being Safe on the Internet[/color]"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            markup: True  # Enables the use of markup
-            halign: "center"
-            on_release: app.open_link("https://youtu.be/HxySrSbSY7o?feature=shared")
-            ImageLeftWidget:
-                source: 'Images/img.png'
-
-        OneLineIconListItem:
-            text: "[color=0000FF]    11 Internet Safety Tips for Your Online Security[/color]"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            markup: True  # Enables the use of markup
-            halign: "center"
-            on_release: app.open_link("https://www.youtube.com/watch?v=aO858HyFbKI")
-            ImageLeftWidget:
-                source: 'Images/img_1.png'
-
-        OneLineIconListItem:
-            text: "[color=0000FF]    Online safety for grown ups[/color]"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            markup: True  # Enables the use of markup
-            halign: "center"
-            on_release: app.open_link("https://www.youtube.com/watch?v=iCs3aJYXLwo")
-            ImageLeftWidget:
-                source: 'Images/img_2.png'
-
-        OneLineIconListItem:
-            text: "[color=0000FF]    Digital Literacy – Staying safe online[/color]"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            markup: True  # Enables the use of markup
-            halign: "center"
-            on_release: app.open_link("https://www.youtube.com/watch?v=EyQeUwqCDWg")
-            ImageLeftWidget:
-                source: 'Images/img_3.png'
-
-        OneLineIconListItem:
-            text: "[color=0000FF]    60 Internet Slang Terms You NEED to Know![/color]"
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-            markup: True  # Enables the use of markup
-            halign: "center"
-            on_release: app.open_link("https://www.youtube.com/watch?v=PVnrDHHJwHM")
-            ImageLeftWidget:
-                source: 'Images/img_4.png'
+            height: "200dp"
+            
+        ScrollView:
+            MDList:
+                OneLineIconListItem:
+                    text: "[color=0000FF]    Being Safe on the Internet[/color]"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    markup: True  # Enables the use of markup
+                    halign: "center"
+                    on_release: app.open_link("https://youtu.be/HxySrSbSY7o?feature=shared")
+                    ImageLeftWidget:
+                        source: 'Images/img.png'
+        
+                OneLineIconListItem:
+                    text: "[color=0000FF]    11 Internet Safety Tips for Your Online Security[/color]"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    markup: True  # Enables the use of markup
+                    halign: "center"
+                    on_release: app.open_link("https://www.youtube.com/watch?v=aO858HyFbKI")
+                    ImageLeftWidget:
+                        source: 'Images/img_1.png'
+        
+                OneLineIconListItem:
+                    text: "[color=0000FF]    Online safety for grown ups[/color]"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    markup: True  # Enables the use of markup
+                    halign: "center"
+                    on_release: app.open_link("https://www.youtube.com/watch?v=iCs3aJYXLwo")
+                    ImageLeftWidget:
+                        source: 'Images/img_2.png'
+        
+                OneLineIconListItem:
+                    text: "[color=0000FF]    Digital Literacy – Staying safe online[/color]"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    markup: True  # Enables the use of markup
+                    halign: "center"
+                    on_release: app.open_link("https://www.youtube.com/watch?v=EyQeUwqCDWg")
+                    ImageLeftWidget:
+                        source: 'Images/img_3.png'
+        
+                OneLineIconListItem:
+                    text: "[color=0000FF]    60 Internet Slang Terms You NEED to Know![/color]"
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                    markup: True  # Enables the use of markup
+                    halign: "center"
+                    on_release: app.open_link("https://www.youtube.com/watch?v=PVnrDHHJwHM")
+                    ImageLeftWidget:
+                        source: 'Images/img_4.png'
+                
+                
 """
 
