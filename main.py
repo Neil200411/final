@@ -79,7 +79,7 @@ class FinalApp(MDApp):
             self.root.transition = RiseInTransition(duration=0.3, clearcolor=clearcolor)
         elif table_screen_name == 'table2':
 
-            self.root.transition = RiseInTransition(duration=0.3, clearcolor=clearcolor)
+            self.root.transition = RiseInTransition(duration=0.4, clearcolor=clearcolor)
 
         self.root.current = table_screen_name
         self.root.current = table_screen_name
