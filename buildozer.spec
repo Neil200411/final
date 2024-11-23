@@ -1,9 +1,10 @@
 [app]
 
 # (str) Title of your application
-title = FinalApp
+title = BiteMe
+
 # (str) Package name
-package.name = BiteMe
+package.name = myapp
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
@@ -43,7 +44,7 @@ requirements = python3,kivy,kivymd, pyjnius
 # requirements.source.kivy = ../../kivy
 
 # (str) Presplash of the application
-presplash.filename =
+#presplash.filename = %(source.dir)s/data/presplash.png
 
 # (str) Icon of the application
 #icon.filename = %(source.dir)s/data/icon.png
@@ -80,7 +81,7 @@ fullscreen = 0
 # red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
 # darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
 # olive, purple, silver, teal.
-android.presplash_color = 
+#android.presplash_color = #FFFFFF
 
 # (string) Presplash animation using Lottie format.
 # see https://lottiefiles.com/ for examples and https://airbnb.design/lottie/
