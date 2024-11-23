@@ -2,7 +2,7 @@ from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.properties import NumericProperty, ListProperty, StringProperty
 from kivy.uix.anchorlayout import AnchorLayout
-from kivy.uix.screenmanager import Screen, FallOutTransition, FadeTransition
+from kivy.uix.screenmanager import Screen, FadeTransition
 
 
 class SplashScreen(Screen):
@@ -10,7 +10,7 @@ class SplashScreen(Screen):
         # Schedule the transition after 10 seconds
         Clock.schedule_once(self.change_screen, 10)
         self.manager.transition = FadeTransition(duration=0.3, clearcolor=(1,1,1,1))
-        self.play_background_music()
+        Clock.schedule_once(self.play_background_music,5)
 
 
     def change_screen(self, *args):
@@ -18,7 +18,7 @@ class SplashScreen(Screen):
         self.manager.current = "main"
         self.stop_background_music()
 
-    def play_background_music(self):
+    def play_background_music(self, *args):
         # Load and play the audio file (replace with your audio path)
         self.sound = SoundLoader.load('Sounds/BG.mp3')
         if self.sound:
@@ -39,11 +39,11 @@ class CircularProgressBar(AnchorLayout):
     bar_width = NumericProperty(10)
     text = StringProperty("0%")
     counter = 0
-    duration = NumericProperty(7)  # Total duration for the progress to complete
+    duration = NumericProperty(4)  # Total duration for the progress to complete
 
     def __init__(self, **kwargs):
         super(CircularProgressBar, self).__init__(**kwargs)
-        Clock.schedule_once(self.animate, 0)
+        Clock.schedule_once(self.animate, 5)
 
     def animate(self, *args):
         interval = self.duration / self.value
