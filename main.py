@@ -22,8 +22,24 @@ class FinalApp(MDApp):
         self.load_tables()  # Call this method after the screen manager is created
         self.click_sound = SoundLoader.load('Sounds/mouse-click-153941.mp3')
         self.click_sound2 = SoundLoader.load('Sounds/click.mp3')
-
+        Window.bind(on_key_down=self._on_key_down)
         return self.screen_manager
+
+    def _on_key_down(self, window, key, *args):
+        """Handle the Android back button."""
+        if key == 27:  # 27 is the keycode for the back button on Android
+            # Check if we are not on the main screen
+            if self.root.current != "main":
+                self.go_back()
+            else:
+                self.stop()  # Exit the app if we are already on the main screen
+            return True  # Override default behavior
+        return False
+
+    def go_back(self):
+        """Navigate back to the previous screen."""
+        self.root.transition = SlideTransition(direction="right")
+        self.root.current = "main"
 
 
     def dl(self):
